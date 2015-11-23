@@ -45,7 +45,7 @@ public class Utility {
         Utility.insertText(searchtxt);
 
     }
-//
+//only Utility or any class in the same package can access the protected method
     protected static void insertText(String searchterms) throws UiObjectNotFoundException {
 
         UiObject editText = device.findObject(new UiSelector().className("android.widget.EditText"));
