@@ -7,6 +7,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
@@ -54,6 +55,13 @@ public class Utility {
         }
         editText.setText(searchterms);
         device.pressEnter();//simulate the search button in keyboard
+    }
+
+
+    protected static void myBooks() throws UiObjectNotFoundException{
+
+        Utility.device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+
     }
 
     protected static void dumpLog(String log_tag, String logg){
