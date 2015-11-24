@@ -68,18 +68,14 @@ public class Utility {
                 .className("android.widget.ScrollView"));
         UiObject menuItems = menuScrollView.getChild(new UiSelector()
                 .className("android.widget.LinearLayout").index(2));
-        UiObject myBooks = menuItems.getChild(new UiSelector().text("My Books"));
-
-        menuItems.click();
+        
 //        Log.i(TEST_LOG_TAG, "===This is a test===" + menuItems.isClickable());
+
+        if (menuItems.isClickable()) {
+            menuItems.click();
+        }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
+
 //        UiObject myBooks = menuItems.getChild(new UiSelector().resourceId("featured_menu_item"));
-
-
-
-//        if(myBooks != null){
-//            myBooks.click();
-//        }else{dumpLog(LOG_TAG, "No My Books Tab. Please check your code");}
-
     }
 
     protected static void dumpLog(String log_tag, String logg){
