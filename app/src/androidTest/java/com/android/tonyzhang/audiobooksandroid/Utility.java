@@ -64,10 +64,14 @@ public class Utility {
 
         Utility.device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
 
-//        UiScrollable menuScrollView = new UiScrollable(new UiSelector()
-//                .className("android.widget.ScrollView"));
-//        UiObject menuItems = menuScrollView.getChild(new UiSelector()
-//                .className("android.widget.LinearLayout"));
+        UiScrollable menuScrollView = new UiScrollable(new UiSelector()
+                .className("android.widget.ScrollView"));
+        UiObject menuItems = menuScrollView.getChild(new UiSelector()
+                .className("android.widget.LinearLayout").index(2));
+        UiObject myBooks = menuItems.getChild(new UiSelector().text("My Books"));
+
+        menuItems.click();
+//        Log.i(TEST_LOG_TAG, "===This is a test===" + menuItems.isClickable());
 //        UiObject myBooks = menuItems.getChild(new UiSelector().resourceId("featured_menu_item"));
 
 
