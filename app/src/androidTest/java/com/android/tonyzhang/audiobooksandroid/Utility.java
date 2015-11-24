@@ -9,6 +9,7 @@ import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiObject2;
 import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.util.Log;
  */
 public class Utility {
 
+    private final static String LOG_TAG = Utility.class.getSimpleName();
     protected final static String TEST_LOG_TAG = "TEST INFO";
 
     protected static UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
@@ -61,6 +63,18 @@ public class Utility {
     protected static void myBooks() throws UiObjectNotFoundException{
 
         Utility.device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+
+//        UiScrollable menuScrollView = new UiScrollable(new UiSelector()
+//                .className("android.widget.ScrollView"));
+//        UiObject menuItems = menuScrollView.getChild(new UiSelector()
+//                .className("android.widget.LinearLayout"));
+//        UiObject myBooks = menuItems.getChild(new UiSelector().resourceId("featured_menu_item"));
+
+
+
+//        if(myBooks != null){
+//            myBooks.click();
+//        }else{dumpLog(LOG_TAG, "No My Books Tab. Please check your code");}
 
     }
 
