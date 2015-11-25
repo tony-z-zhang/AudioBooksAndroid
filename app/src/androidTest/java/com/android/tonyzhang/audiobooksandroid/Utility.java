@@ -44,8 +44,8 @@ public class Utility {
 
     public static void search(String searchtxt) throws UiObjectNotFoundException{
 
-        Utility.device.findObject(By.descContains("Search").clazz("android.widget.TextView")).click();
-        Utility.insertText(searchtxt);
+        device.findObject(By.descContains("Search").clazz("android.widget.TextView")).click();
+        insertText(searchtxt);
 
     }
 //only Utility or any class in the same package can access the protected method
@@ -62,7 +62,7 @@ public class Utility {
 
     protected static void myBooks() throws UiObjectNotFoundException{
 
-        Utility.device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+        device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
 
         UiScrollable menuScrollView = new UiScrollable(new UiSelector()
                 .className("android.widget.ScrollView"));
@@ -77,12 +77,14 @@ public class Utility {
 //        UiObject mybookText = myBooks.getChild(new UiSelector().className("android.widget.TextView"));
 //        Log.i(TEST_LOG_TAG, "===This is a test===" + mybookText.getText());
 
+//        device.waitForWindowUpdate(PACKAGE_NAME, 5000);
+
         if (myBooks.isClickable()) {
             myBooks.click();
         }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
 
     }
 
-    protected static void dumpLog(String log_tag, String logg){
-        Log.i(log_tag, logg);}
+    protected static void dumpLog(String log_tag, String log){
+        Log.i(log_tag, log);}
 }
