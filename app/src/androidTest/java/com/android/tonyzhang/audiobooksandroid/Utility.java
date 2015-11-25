@@ -66,16 +66,21 @@ public class Utility {
 
         UiScrollable menuScrollView = new UiScrollable(new UiSelector()
                 .className("android.widget.ScrollView"));
-        UiObject menuItems = menuScrollView.getChild(new UiSelector()
-                .className("android.widget.LinearLayout").index(2));
-        
-//        Log.i(TEST_LOG_TAG, "===This is a test===" + menuItems.isClickable());
 
-        if (menuItems.isClickable()) {
-            menuItems.click();
+        UiObject myBooks = menuScrollView.getChild(new UiSelector()
+                .className("android.widget.LinearLayout")).getChild(new UiSelector().index(2));
+
+//        UiObject oneLevelDown = menuScrollView.getChild(new UiSelector()
+//                .className("android.widget.LinearLayout"));
+//        UiObject myBooks = oneLevelDown.getChild(new UiSelector().index(2));
+
+//        UiObject mybookText = myBooks.getChild(new UiSelector().className("android.widget.TextView"));
+//        Log.i(TEST_LOG_TAG, "===This is a test===" + mybookText.getText());
+
+        if (myBooks.isClickable()) {
+            myBooks.click();
         }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
 
-//        UiObject myBooks = menuItems.getChild(new UiSelector().resourceId("featured_menu_item"));
     }
 
     protected static void dumpLog(String log_tag, String logg){
