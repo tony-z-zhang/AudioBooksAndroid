@@ -3,6 +3,7 @@ package com.android.tonyzhang.audiobooksandroid;
 import android.app.UiAutomation;
 import android.content.Context;
 import android.content.Intent;
+import android.os.ParcelFileDescriptor;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.By;
 import android.support.test.uiautomator.UiDevice;
@@ -13,6 +14,14 @@ import android.support.test.uiautomator.UiScrollable;
 import android.support.test.uiautomator.UiSelector;
 import android.support.test.uiautomator.Until;
 import android.util.Log;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileDescriptor;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by tonyzhang on 11/22/15.
@@ -48,7 +57,8 @@ public class Utility {
         insertText(searchtxt);
 
     }
-//only Utility or any class in the same package can access the protected method
+
+    //only Utility or any class in the same package can access the protected method
     protected static void insertText(String searchterms) throws UiObjectNotFoundException {
 
         UiObject editText = device.findObject(new UiSelector().className("android.widget.EditText"));
@@ -60,7 +70,34 @@ public class Utility {
     }
 
 
-    protected static void myBooks() throws UiObjectNotFoundException{
+    public static void menu(int index) throws UiObjectNotFoundException{
+
+        device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+
+        UiScrollable menuScrollView = new UiScrollable(new UiSelector()
+                .className("android.widget.ScrollView"));
+
+/*
+        index = 0: Featured
+        index = 1: Browse
+        index = 2: My Books
+        index = 4: Sign Up
+        index = 5: Login
+        index = 6: Settings
+        index = 8: Customer Service
+*/
+
+        UiObject menuitem = menuScrollView.getChild(new UiSelector()
+                .className("android.widget.LinearLayout")).getChild(new UiSelector().index(index));
+
+        if (menuitem.isClickable()) {
+            menuitem.click();
+        }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
+
+    }
+
+
+    public static void myBooks() throws UiObjectNotFoundException{
 
         device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
 
@@ -84,6 +121,61 @@ public class Utility {
         }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
 
     }
+
+
+    protected static String getStringFromShellCmd(String cmd){
+        ParcelFileDescriptor pfd = null;
+        FileDescriptor fd = null;
+        String s = null;
+        String result = "";
+        try {
+            pfd = uia.executeShellCommand(cmd);
+            fd = pfd.getFileDescriptor();
+            InputStream is= new BufferedInputStream(new FileInputStream(fd));
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(is));
+
+            // read the output from the cmd
+            while ((s = stdInput.readLine()) != null) {
+                result = result + s + "\n";
+            }
+            //close streams and buffer
+            is.close();
+            pfd.close();
+        } catch (IOException e) {
+            dumpLog(LOG_TAG, "exception here's what I know: ");
+            e.printStackTrace();
+            dumpLog(LOG_TAG, "Exception occurred");
+
+        }
+        return result;
+    }
+
+    public static void userLogin(String username, String password) throws UiObjectNotFoundException, InterruptedException{
+
+        Utility.menu(5);
+        Utility.device.findObject(By.res(PACKAGE_NAME, "txtUser")).setText(username);
+        Thread.sleep(1000);
+        Utility.device.findObject(By.res(PACKAGE_NAME, "txtPassword")).setText(password);
+        Thread.sleep(1000);
+
+        Utility.device.findObject(By.res(PACKAGE_NAME, "btnLogin")).click();
+    }
+
+
+    public static void userLogout() throws UiObjectNotFoundException, InterruptedException{
+
+//      For some reason
+//      Automating menu click twice after login, such as settings and logout, the menu() func doesn't work properly,
+//      has to re-locate the element by res.
+
+        device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+        Thread.sleep(2000);
+        Utility.device.findObject(By.res(PACKAGE_NAME, "menu_logout")).click();
+        Thread.sleep(5000);
+        Utility.device.findObject(By.res(PACKAGE_NAME, "button_1")).click();
+
+    }
+
 
     protected static void dumpLog(String log_tag, String log){
         Log.i(log_tag, log);}

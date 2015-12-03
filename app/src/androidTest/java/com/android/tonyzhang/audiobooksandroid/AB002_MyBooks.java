@@ -14,7 +14,7 @@ public class AB002_MyBooks extends InstrumentationTestCase {
         try{
             Utility.findAndRunApp();
             Thread.sleep(10000);
-            Utility.myBooks();
+            Utility.menu(2);
             Thread.sleep(5000);
 
 //            // Verify the screen text
