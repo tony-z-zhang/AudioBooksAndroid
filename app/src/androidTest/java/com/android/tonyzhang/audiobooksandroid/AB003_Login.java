@@ -13,10 +13,20 @@ import android.test.InstrumentationTestCase;
  */
 public class AB003_Login extends InstrumentationTestCase {
     private static final String PACKAGE_NAME = "com.audiobooks.androidapp";
-    public void testLoginHappyPath() throws UiObjectNotFoundException, InterruptedException {
+    public void testLogin() throws UiObjectNotFoundException, InterruptedException {
         try{
             Utility.findAndRunApp();
             Thread.sleep(10000);
+            Utility.userLogin("tony.zhang@gm.com", "Abc12");
+            Thread.sleep(5000);
+
+            UiObject2 okBtn =  Utility.device.findObject(By.res(PACKAGE_NAME, "button_1"));
+            UiObject2 dialogMsg =  Utility.device.findObject(By.res(PACKAGE_NAME, "dialog_message"));
+            assertEquals("No match found for the supplied email address / password.", dialogMsg.getText());
+            okBtn.click();
+            Thread.sleep(5000);
+
+
             Utility.userLogin("tony.zhang@gm.com", "Abc123");
             Thread.sleep(5000);
 
@@ -26,14 +36,6 @@ public class AB003_Login extends InstrumentationTestCase {
             UiObject2 headerTitle =  Utility.device.findObject(By.text("My Books").clazz("android.widget.TextView"));
             assertEquals("Purchased", purchasedTab.getText());
             assertEquals(true, headerTitle != null);
-
-
-            //verify there is credit label under settings
-            Utility.menu(5);
-            Thread.sleep(5000);
-            UiObject2 avalCredits =  Utility.device.findObject(By.res(PACKAGE_NAME, "txt_credits_available"));
-            assertEquals("8", avalCredits.getText());
-            Thread.sleep(5000);
 
 
             //verify if user can logout
@@ -47,23 +49,6 @@ public class AB003_Login extends InstrumentationTestCase {
         }
     }
 
-    public void testLoginNegative() throws UiObjectNotFoundException, InterruptedException {
-        try{
-            Utility.findAndRunApp();
-            Thread.sleep(5000);
-            Utility.userLogin("tony.zhang@gm.com", "Abc12");
-            Thread.sleep(5000);
 
-
-            UiObject2 okBtn =  Utility.device.findObject(By.res(PACKAGE_NAME, "button_1"));
-            UiObject2 dialogMsg =  Utility.device.findObject(By.res(PACKAGE_NAME, "dialog_message"));
-            assertEquals("No match found for the supplied email address / password.", dialogMsg.getText());
-            okBtn.click();
-
-
-        }catch(UiObjectNotFoundException e){
-            Utility.dumpLog(Utility.TEST_LOG_TAG, String.valueOf(e));
-        }
-    }
 
 }

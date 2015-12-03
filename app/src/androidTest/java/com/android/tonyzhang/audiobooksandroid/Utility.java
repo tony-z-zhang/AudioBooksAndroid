@@ -152,27 +152,42 @@ public class Utility {
 
     public static void userLogin(String username, String password) throws UiObjectNotFoundException, InterruptedException{
 
-        Utility.menu(5);
-        Utility.device.findObject(By.res(PACKAGE_NAME, "txtUser")).setText(username);
+        menu(5);
+        Thread.sleep(2000);
+        UiObject2 userField = device.findObject(By.res(PACKAGE_NAME, "txtUser"));
+        if(userField.getText()!=null){
+            userField.clear();
+        }
         Thread.sleep(1000);
-        Utility.device.findObject(By.res(PACKAGE_NAME, "txtPassword")).setText(password);
+        userField.setText(username);
+
+        UiObject2 pwdField = device.findObject(By.res(PACKAGE_NAME, "txtPassword"));
+        if(pwdField.getText()!=null){
+            pwdField.clear();
+        }
+        Thread.sleep(1000);
+        pwdField.setText(password);
+
         Thread.sleep(1000);
 
-        Utility.device.findObject(By.res(PACKAGE_NAME, "btnLogin")).click();
+        device.findObject(By.res(PACKAGE_NAME, "btnLogin")).click();
     }
 
 
     public static void userLogout() throws UiObjectNotFoundException, InterruptedException{
 
 //      For some reason
-//      Automating menu click twice after login, such as settings and logout, the menu() func doesn't work properly,
-//      has to re-locate the element by res.
+//      Automating menu click twice after login in one testfunc doesn't work properly
+//      Such as click settings and then click logout
+//      If that's the case, it has to re-locate the element by res, like the code below
 
-        device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
-        Thread.sleep(2000);
-        Utility.device.findObject(By.res(PACKAGE_NAME, "menu_logout")).click();
+//        device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+//        Thread.sleep(2000);
+//        Utility.device.findObject(By.res(PACKAGE_NAME, "menu_logout")).click();
+
+        menu(4);
         Thread.sleep(5000);
-        Utility.device.findObject(By.res(PACKAGE_NAME, "button_1")).click();
+        device.findObject(By.res(PACKAGE_NAME, "button_1")).click();
 
     }
 
