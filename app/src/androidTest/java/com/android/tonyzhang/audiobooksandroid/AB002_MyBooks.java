@@ -15,7 +15,7 @@ public class AB002_MyBooks extends InstrumentationTestCase {
             Utility.findAndRunApp();
             Thread.sleep(10000);
             Utility.myBooks();
-            Thread.sleep(10000);
+            Thread.sleep(5000);
 
 //            // Verify the screen text
             UiObject2 purchasedTab =  Utility.device.findObject(By.res(PACKAGE_NAME, "button1"));
