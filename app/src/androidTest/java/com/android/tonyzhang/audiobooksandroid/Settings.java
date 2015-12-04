@@ -15,7 +15,6 @@ public class Settings {
 
         Utility.userLogin("tony.zhang@gm.com", "Abc123");
         Thread.sleep(5000);
-        //verify there is credit label under settings
         Utility.menu(5);
         Thread.sleep(5000);
         UiObject2 avalCredits =  Utility.device.findObject(By.res(PACKAGE_NAME, "txt_credits_available"));
