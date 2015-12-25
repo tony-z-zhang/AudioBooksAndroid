@@ -10,7 +10,7 @@ import android.test.InstrumentationTestCase;
 import android.util.Log;
 
 /**
- * Created by tonyzhang on 12/3/15.
+ * Created by tonyzhang on 12/24/15.
  */
 public class AB001_Search extends InstrumentationTestCase {
     public void testSearch() throws UiObjectNotFoundException, InterruptedException {
@@ -20,8 +20,8 @@ public class AB001_Search extends InstrumentationTestCase {
             Utility.search("The Hunger Games");
             Thread.sleep(5000);
 
-            UiObject2 book =  Utility.device.findObject(By.text("Hunger Games").clazz("android.widget.TextView"));
-            assertEquals(true, book!=null);
+            assertTrue("Hunger Games book not found",
+                    Utility.device.findObject(By.text("Hunger Games").clazz("android.widget.TextView"))!=null);
 
 
         }catch(UiObjectNotFoundException e){

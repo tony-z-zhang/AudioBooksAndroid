@@ -32,7 +32,7 @@ public class Utility {
     protected final static String TEST_LOG_TAG = "TEST INFO";
     private static String[] menulistID = {"featured_menu_item", "browse_menu_item",
             "your_books_menu_item", "menu_signup",
-            "menu_login","settings_menu_item", "customer_service_menu_item"};
+            "menu_login", "menu_logout", "settings_menu_item", "customer_service_menu_item"};
     protected static UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
     protected static UiAutomation uia = InstrumentationRegistry.getInstrumentation().getUiAutomation();
 
@@ -157,7 +157,7 @@ public class Utility {
 
     public static void userLogin(String username, String password) throws UiObjectNotFoundException, InterruptedException{
 
-        menu(5);
+        menubyID(4);
         Thread.sleep(2000);
         UiObject2 userField = device.findObject(By.res(PACKAGE_NAME, "txtUser"));
         if(userField.getText()!=null){
@@ -190,7 +190,7 @@ public class Utility {
 //        Thread.sleep(2000);
 //        Utility.device.findObject(By.res(PACKAGE_NAME, "menu_logout")).click();
 
-        menu(4);
+        menubyID(5);
         Thread.sleep(5000);
         device.findObject(By.res(PACKAGE_NAME, "button_1")).click();
 
