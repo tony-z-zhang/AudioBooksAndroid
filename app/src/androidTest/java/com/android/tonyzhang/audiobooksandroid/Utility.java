@@ -30,7 +30,9 @@ public class Utility {
 
     private final static String LOG_TAG = Utility.class.getSimpleName();
     protected final static String TEST_LOG_TAG = "TEST INFO";
-
+    private static String[] menulistID = {"featured_menu_item", "browse_menu_item",
+            "your_books_menu_item", "menu_signup",
+            "menu_login","settings_menu_item", "customer_service_menu_item"};
     protected static UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
     protected static UiAutomation uia = InstrumentationRegistry.getInstrumentation().getUiAutomation();
 
@@ -69,13 +71,16 @@ public class Utility {
         device.pressEnter();//simulate the search button in keyboard
     }
 
-
-    public static void menu(int index) throws UiObjectNotFoundException{
+    //Identify the higher level and then locate the element by index.
+    //There are two scrollview, so we have to move one level up to drawerlayout
+    public static void menu(int index) throws UiObjectNotFoundException, InterruptedException {
 
         device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
 
         UiScrollable menuScrollView = new UiScrollable(new UiSelector()
-                .className("android.widget.ScrollView"));
+                .className("android.support.v4.widget.DrawerLayout")
+                .childSelector(new UiSelector().index(1)
+                        .className("android.widget.ScrollView")));
 
 /*
         index = 0: Featured
@@ -90,31 +95,31 @@ public class Utility {
         UiObject menuitem = menuScrollView.getChild(new UiSelector()
                 .className("android.widget.LinearLayout")).getChild(new UiSelector().index(index));
 
+
         if (menuitem.isClickable()) {
             menuitem.click();
         }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
-
     }
 
 
-    public static void myBooks() throws UiObjectNotFoundException{
+
+    //locate the element by resource ID thur the array declared at the very beginning.
+    public static void menubyID(int x) throws UiObjectNotFoundException, InterruptedException {
 
         device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+        Thread.sleep(2000);
+        UiObject2 menuitem = device.findObject(By.res(PACKAGE_NAME, menulistID[x]));
 
-        UiScrollable menuScrollView = new UiScrollable(new UiSelector()
-                .className("android.widget.ScrollView"));
+        if (menuitem.isClickable()) {
+            menuitem.click();
+        }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
+    }
 
-        UiObject myBooks = menuScrollView.getChild(new UiSelector()
-                .className("android.widget.LinearLayout")).getChild(new UiSelector().index(2));
+    public static void myBooks() throws UiObjectNotFoundException, InterruptedException {
 
-//        UiObject oneLevelDown = menuScrollView.getChild(new UiSelector()
-//                .className("android.widget.LinearLayout"));
-//        UiObject myBooks = oneLevelDown.getChild(new UiSelector().index(2));
-
-//        UiObject mybookText = myBooks.getChild(new UiSelector().className("android.widget.TextView"));
-//        Log.i(TEST_LOG_TAG, "===This is a test===" + mybookText.getText());
-
-//        device.waitForWindowUpdate(PACKAGE_NAME, 5000);
+        device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
+        Thread.sleep(2000);
+        UiObject2 myBooks = device.findObject(By.res(PACKAGE_NAME, "your_books_menu_item"));
 
         if (myBooks.isClickable()) {
             myBooks.click();
