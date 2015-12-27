@@ -96,9 +96,9 @@ public class Utility {
                 .className("android.widget.LinearLayout")).getChild(new UiSelector().index(index));
 
 
-        if (menuitem.isClickable()) {
+        if (menuitem!=null) {
             menuitem.click();
-        }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
+        }else{dumpLog(LOG_TAG, "The object not found. Please check your code");}
     }
 
 
@@ -110,9 +110,9 @@ public class Utility {
         Thread.sleep(2000);
         UiObject2 menuitem = device.findObject(By.res(PACKAGE_NAME, menulistID[x]));
 
-        if (menuitem.isClickable()) {
+        if (menuitem!=null) {
             menuitem.click();
-        }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
+        }else{dumpLog(LOG_TAG, "The object not found. Please check your code");}
     }
 
     public static void myBooks() throws UiObjectNotFoundException, InterruptedException {
@@ -121,9 +121,9 @@ public class Utility {
         Thread.sleep(2000);
         UiObject2 myBooks = device.findObject(By.res(PACKAGE_NAME, "your_books_menu_item"));
 
-        if (myBooks.isClickable()) {
+        if (myBooks!=null) {
             myBooks.click();
-        }else{dumpLog(LOG_TAG, "The object is not clickable. Please check your code");}
+        }else{dumpLog(LOG_TAG, "The object not found. Please check your code");}
 
     }
 
