@@ -16,6 +16,8 @@ public class AB004_Browse extends InstrumentationTestCase {
             Thread.sleep(5000);
             Browse.randombrowse();
             Thread.sleep(2000);
+            Browse.randombook();
+            Thread.sleep(2000);
 
         } catch (UiObjectNotFoundException e) {
             Utility.dumpLog(Utility.TEST_LOG_TAG, String.valueOf(e));
