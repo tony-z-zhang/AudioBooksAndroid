@@ -103,7 +103,7 @@ public class Utility {
 
 
 
-    //locate the element by resource ID thur the array declared at the very beginning.
+    //locate the element by resource ID thru the array declared at the very beginning.
     public static void menubyID(int x) throws UiObjectNotFoundException, InterruptedException {
 
         device.findObject(By.descContains("Menu Open").clazz("android.widget.ImageButton")).click();
