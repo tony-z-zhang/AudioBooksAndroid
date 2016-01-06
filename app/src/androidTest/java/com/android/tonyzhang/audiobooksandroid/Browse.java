@@ -35,6 +35,11 @@ public class Browse {
         browseScrollView.scrollTextIntoView(book_categories[descnumber]);
         browseScrollView.waitForExists(3000);
 
+//        You don't identify by the text of the LinearLayout.
+//        "It looks for any child matching the childPattern argument " +
+//                "that has a child UI element anywhere within its sub hierarchy that" +
+//                " has a text attribute equal to text."
+//        In other words, you look for a LinearLayout that has a child with the text
         UiObject randombrowse = browseScrollView.getChildByText(new UiSelector()
                 .className("android.widget.LinearLayout"), book_categories[descnumber]);
 
