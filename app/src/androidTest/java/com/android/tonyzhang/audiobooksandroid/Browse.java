@@ -29,8 +29,11 @@ public class Browse {
         Random randomGenerator = new Random();
         int descnumber = randomGenerator.nextInt(book_categories.length-1);
 
-        UiScrollable browseScrollView = new UiScrollable(new UiSelector()
-                .className("android.widget.ListView").resourceId("com.audiobooks.androidapp:id/list"));
+        //we can locate scrollable in a container by class with its resourceID
+        //OR we can locate just by scrollable = true
+//        UiScrollable browseScrollView = new UiScrollable(new UiSelector()
+//                .className("android.widget.ListView").resourceId("com.audiobooks.androidapp:id/list"));
+        UiScrollable browseScrollView = new UiScrollable(new UiSelector().scrollable(true));
 
         browseScrollView.scrollTextIntoView(book_categories[descnumber]);
         browseScrollView.waitForExists(3000);
@@ -64,9 +67,19 @@ public class Browse {
             randomsub = 0;
         }
 
+        //The below line needs to be modified by text or so, since index(1) for linearlayout in parent level+
+        //will always be replaced by the first linearlayout child with index=1 under linearlayout index(0)
+        //linearlayout(0)
+        // - image(0)
+        // - linearlayout(1)
+        //linearlayout(1)  ========= this one will be replaced by the one above
+        // - image(0)
+        // - linearlayout(1)
         UiObject subcategory = listView.getChild(new UiSelector()
                 .className("android.widget.LinearLayout")
                 .index(randomsub));
+
+
 
         if(subcategory!=null){
             subcategory.click();
