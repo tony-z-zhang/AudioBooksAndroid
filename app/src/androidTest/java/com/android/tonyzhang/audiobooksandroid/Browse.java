@@ -79,8 +79,6 @@ public class Browse {
                 .className("android.widget.LinearLayout")
                 .index(randomsub));
 
-
-
         if(subcategory!=null){
             subcategory.click();
         }else{Utility.dumpLog(LOG_TAG, "The object not found. Please check your code");}
