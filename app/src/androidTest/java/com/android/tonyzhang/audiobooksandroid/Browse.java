@@ -75,6 +75,7 @@ public class Browse {
         //linearlayout(1)  ========= this one will be replaced by the one above
         // - image(0)
         // - linearlayout(1)
+        //============BEST PRACTICE is create an array for all the subcatogory and do the same thing like randombrowse does========
         UiObject subcategory = listView.getChild(new UiSelector()
                 .className("android.widget.LinearLayout")
                 .index(randomsub));
